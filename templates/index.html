@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Productos con IVA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+            align-self: center;
+        }
+
+        input {
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #0ff;
+            background-color: #1e1e1e;
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #0ff;
+            color: #121212;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            outline: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        button:hover {
+            background-color: #121212;
+            color: #0ff;
+            border: 1px solid #0ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #0ff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2e2e2e;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+
+        .flashes {
+            color: #f00;
+            list-style-type: none;
+            text-align: center;
+            padding: 0;
+        }
+
+        .flashes li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabla de Productos con IVA</h1>
+
+    <form method="POST">
+        <label for="product">Producto:</label>
+        <input type="text" id="product" name="product" placeholder="Ingrese el nombre del producto">
+        <label for="price">Precio:</label>
+        <input type="text" id="price" name="price" placeholder="Ingrese el precio">
+        <button type="submit">Agregar Producto</button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>IVA</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.iva }}</td>
+                <td>{{ product.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
